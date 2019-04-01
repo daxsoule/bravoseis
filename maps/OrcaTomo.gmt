@@ -1,0 +1,77 @@
+#!/bin/csh -f
+
+gmt gmtset PAPER_MEDIA = letter
+gmt gmtset PAGE_ORIENTATION = landscape
+
+set grdfile = OrcaVolcano_topo61m.grd
+set R = -58.74/-58.19/-62.555/-62.34
+#set R = -58.63/-58.25/-62.50/-62.37
+set outfile = OrcaTomo.ps
+
+gmt grdgradient $grdfile -V -A340 -Gtemp.grd
+gmt grdmath temp.grd 1 DIV = $grdfile:r_grad.grd
+rm temp.grd
+
+gmt makecpt -V -Ctopo -T-2000/2000/10 > OrcaVolcano.cpt
+#gmt makecpt -V -Chaxby -T-2000/0/50 > OrcaVolcano.cpt
+set CPT = OrcaVolcano.cpt 
+
+gmt grdimage $grdfile -R$R  -I$grdfile:r_grad.grd -Jm40 -Ba5mf1m/a5mf1mWSen -C$CPT  -X.8i -Y0.8i -V -K > $outfile
+
+gmt psxy T_01_COS.txt -J -R -K -O -V -Sc0.1 -W0.05,black -Gred >> $outfile 
+gmt psxy T_03_COS.txt -J -R -K -O -V -Sc0.1 -W0.05,black -Gred >> $outfile 
+gmt psxy T_03b_COS.txt -J -R -K -O -V -Sc0.1 -W0.05,black -Gred >> $outfile 
+gmt psxy T_05_COS.txt -J -R -K -O -V -Sc0.1 -W0.05,black -Gred >> $outfile 
+gmt psxy T_07_COS.txt -J -R -K -O -V -Sc0.1 -W0.05,black -Gred >> $outfile 
+gmt psxy T_09_COS.txt -J -R -K -O -V -Sc0.1 -W0.05,black -Gred >> $outfile 
+gmt psxy T_10_COS.txt -J -R -K -O -V -Sc0.1 -W0.05,black -Gred >> $outfile 
+gmt psxy T_11_COS.txt -J -R -K -O -V -Sc0.1 -W0.05,black -Gred >> $outfile 
+gmt psxy T_12_COS.txt -J -R -K -O -V -Sc0.1 -W0.05,black -Gred >> $outfile 
+gmt psxy T_13_COS.txt -J -R -K -O -V -Sc0.1 -W0.05,black -Gred >> $outfile 
+gmt psxy T_14_COS.txt -J -R -K -O -V -Sc0.1 -W0.05,black -Gred >> $outfile 
+gmt psxy T_15_COS.txt -J -R -K -O -V -Sc0.1 -W0.05,black -Gred >> $outfile 
+gmt psxy T_16_COS.txt -J -R -K -O -V -Sc0.1 -W0.05,black -Gred >> $outfile 
+gmt psxy T_17_COS.txt -J -R -K -O -V -Sc0.1 -W0.05,black -Gred >> $outfile 
+gmt psxy T_19_COS.txt -J -R -K -O -V -Sc0.1 -W0.05,black -Gred >> $outfile 
+gmt psxy T_20_COS.txt -J -R -K -O -V -Sc0.1 -W0.05,black -Gred >> $outfile 
+gmt psxy T_21_COS.txt -J -R -K -O -V -Sc0.1 -W0.05,black -Gred >> $outfile 
+gmt psxy T_23_COS.txt -J -R -K -O -V -Sc0.1 -W0.05,black -Gred >> $outfile 
+gmt psxy T_25_COS.txt -J -R -K -O -V -Sc0.1 -W0.05,black -Gred >> $outfile 
+gmt psxy T_27_COS.txt -J -R -K -O -V -Sc0.1 -W0.05,black -Gred >> $outfile 
+gmt psxy T_29_COS.txt -J -R -K -O -V -Sc0.1 -W0.05,black -Gred >> $outfile 
+gmt psxy T_30_COS.txt -J -R -K -O -V -Sc0.1 -W0.05,black -Gred >> $outfile 
+gmt psxy T_31_COS.txt -J -R -K -O -V -Sc0.1 -W0.05,black -Gred >> $outfile 
+gmt psxy T_32_COS.txt -J -R -K -O -V -Sc0.1 -W0.05,black -Gred >> $outfile 
+gmt psxy T_33_COS.txt -J -R -K -O -V -Sc0.1 -W0.05,black -Gred >> $outfile 
+gmt psxy T_34_COS.txt -J -R -K -O -V -Sc0.1 -W0.05,black -Gred >> $outfile 
+gmt psxy T_35_COS.txt -J -R -K -O -V -Sc0.1 -W0.05,black -Gred >> $outfile 
+gmt psxy T_36_COS.txt -J -R -K -O -V -Sc0.1 -W0.05,black -Gred >> $outfile 
+gmt psxy GE-OBS.lola -J -R -K -O -V -Sc0.2 -W0.25,black -Ggreen >> $outfile 
+gmt psxy US-OBS.lola -J -R -K -O -V  -Sc0.2 -W0.25,black -Gyellow >> $outfile
+gmt psxy US-hydrophone.lola -J -R -K -O -V  -Sc0.2 -W0.25,black -Gmagenta >> $outfile
+#gmt psxy 3D_profiles_prelim.txt -J -R -B -P -K -O -W0.8,red >> $outfile
+#gmt psxy tomo_profiles_prelim.txt -J -R -B -P -K -O -W0.8 >> $outfile
+
+#gmt pstext -J -R -K -O -V -D.1/0 -F+f12p,Times-Roman,Black+jBL caldera_newnames >> $outfile
+#gmt pstext -J -R -K -O -V -D.-10/-.2 -F+f8p,Times-Roman,Black+jBL 3D_profiles_prelim_name.txt >> $outfile
+#gmt pstext -J -R -K -O -V -D.-2/.2 -F+f8p,Times-Roman,Red+jBL tomo_profiles_prelim_name.txt >> $outfile
+gmt pstext -J -R -K -O -V -D.-2/.2 -F+f8p,Times-Roman,Black+jBL T_COS_NAME.txt >> $outfile
+#gmt psxy 3D_profiles.txt -J -R -O -K -W0.5 >>$outfile
+#gmt psxy 2D_profiles.txt -J -R -O -K -W0.5 >>$outfile
+#gmt psxy tomo_profiles.txt -J -R -O -K -W0.5,yellow >>$outfile 
+#gmt psxy T_01_COS_revised_name.txt -J -R -O -K -W0.5 >>$outfile
+
+gmt pscoast -J -R -Na -W -Dh -O  >> $outfile
+
+
+# Points
+# gmt psxy dsdp_holes_edited.txt -J -R -K -O -Sh0.2 -W0.25,black -Gmagenta >> $outfile
+
+
+#Lines
+#gmt psxy RSNcableroute.xy -J -R -O -K -: -W1.0,tan >> $outfile
+
+#Text Example
+#pstext  ${STF}srStation_2015_recover_LDEO_ARRA.txt  -F+f11,Helvetica,black+a0+jMR -W1,white -Gwhite -C20% -D-0.20/-0.1     -R -Jm -O -K >> $PS
+
+open $outfile

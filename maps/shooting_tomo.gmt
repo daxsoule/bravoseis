@@ -1,0 +1,77 @@
+#!/bin/csh -f
+
+gmt gmtset PAPER_MEDIA = letter
+gmt gmtset PAGE_ORIENTATION = landscape
+
+set grdfile = BransfieldBasin_topo244m.grd
+#set R = -61.8/-56.3/-63.9/-61.9
+set R = -61.0/-56.3/-63.4/-61.9
+set outfile = shootin_tomo.ps
+
+
+gmt grdgradient $grdfile -V -A340 -Gtemp.grd
+gmt grdmath temp.grd 10 DIV = $grdfile:r_grad.grd
+rm temp.grd
+
+
+gmt makecpt -V -Ctopo -T-2000/2000/10 -Z  > BransfieldBasin.cpt
+set CPT = BransfieldBasin.cpt 
+
+gmt grdimage $grdfile -R$R  -I$grdfile:r_grad.grd -Jm5 -Ba1df10m/a30mf10mWSen -C$CPT  -X.8i -Y0.8i -V -K > $outfile
+
+gmt psxy T_01_COS.txt -J -R -K -O -V -Sc0.01 -W0.01,black -Gred >> $outfile
+gmt psxy T_03_COS.txt -J -R -K -O -V -Sc0.01 -W0.01,black -Gred >> $outfile
+gmt psxy T_03b_COS.txt -J -R -K -O -V -Sc0.01 -W0.01,black -Gred >> $outfile
+gmt psxy T_05_COS.txt -J -R -K -O -V -Sc0.01 -W0.01,black -Gred >> $outfile
+gmt psxy T_07_COS.txt -J -R -K -O -V -Sc0.01 -W0.01,black -Gred >> $outfile
+gmt psxy T_09_COS.txt -J -R -K -O -V -Sc0.01 -W0.01,black -Gred >> $outfile
+gmt psxy T_10_COS.txt -J -R -K -O -V -Sc0.01 -W0.01,black -Gred >> $outfile
+gmt psxy T_11_COS.txt -J -R -K -O -V -Sc0.01 -W0.01,black -Gred >> $outfile
+gmt psxy T_12_COS.txt -J -R -K -O -V -Sc0.01 -W0.01,black -Gred >> $outfile
+gmt psxy T_13_COS.txt -J -R -K -O -V -Sc0.01 -W0.01,black -Gred >> $outfile
+gmt psxy T_14_COS.txt -J -R -K -O -V -Sc0.01 -W0.01,black -Gred >> $outfile
+gmt psxy T_15_COS.txt -J -R -K -O -V -Sc0.01 -W0.01,black -Gred >> $outfile
+gmt psxy T_16_COS.txt -J -R -K -O -V -Sc0.01 -W0.01,black -Gred >> $outfile
+gmt psxy T_17_COS.txt -J -R -K -O -V -Sc0.01 -W0.01,black -Gred >> $outfile
+gmt psxy T_19_COS.txt -J -R -K -O -V -Sc0.01 -W0.01,black -Gred >> $outfile
+gmt psxy T_20_COS.txt -J -R -K -O -V -Sc0.01 -W0.01,black -Gred >> $outfile
+gmt psxy T_21_COS.txt -J -R -K -O -V -Sc0.01 -W0.01,black -Gred >> $outfile
+gmt psxy T_23_COS.txt -J -R -K -O -V -Sc0.01 -W0.01,black -Gred >> $outfile 
+gmt psxy T_25_COS.txt -J -R -K -O -V -Sc0.01 -W0.01,black -Gred >> $outfile 
+gmt psxy T_27_COS.txt -J -R -K -O -V -Sc0.01 -W0.01,black -Gred >> $outfile 
+gmt psxy T_29_COS.txt -J -R -K -O -V -Sc0.01 -W0.01,black -Gred >> $outfile
+gmt psxy T_30_COS.txt -J -R -K -O -V -Sc0.01 -W0.01,black -Gred >> $outfile
+gmt psxy T_31_COS.txt -J -R -K -O -V -Sc0.01 -W0.01,black -Gred >> $outfile
+gmt psxy T_32_COS.txt -J -R -K -O -V -Sc0.01 -W0.01,black -Gred >> $outfile
+gmt psxy T_33_COS.txt -J -R -K -O -V -Sc0.01 -W0.01,black -Gred >> $outfile
+gmt psxy T_34_COS.txt -J -R -K -O -V -Sc0.01 -W0.01,black -Gred >> $outfile
+gmt psxy T_35_COS.txt -J -R -K -O -V -Sc0.01 -W0.01,black -Gred >> $outfile
+gmt psxy T_36_COS.txt -J -R -K -O -V -Sc0.01 -W0.01,black -Gred >> $outfile
+#gmt psxy T_01_COS.txt -J -R -K -O -Sc0.2 -W0.25,black -Gblack >> $outfile
+gmt psxy GE-OBS.lola -J -R -K -O -Sc0.2 -W0.25,black -Ggreen >> $outfile
+gmt psxy US-OBS.lola -J -R -K -O -Sc0.2 -W0.25,black -Gyellow >> $outfile
+gmt psxy US-hydrophone.lola -J -R -K -O -Sc0.2 -W0.25,black -Gmagenta >> $outfile
+#gmt psxy along_axis_2.txt -J -R -B -P -K -O -W1.0 >> $outfile
+#gmt psxy 2D_profiles_prelim.txt -J -R -B -P -K -O -W1.0 -Ggrey >> $outfile
+#gmt psxy 3D_profiles_prelim.txt -J -R -B -P -K -O -W0.1 >> $outfile
+#gmt psxy tomo_profiles_prelim.txt -J -R -B -P -K -O -W0.1 >> $outfile
+
+#gmt pstext -J -R -K -O -V -D.11/0 -F+f12p,Times-Roman,Black+jBL wide_stanames >> $outfile
+#gmt pstext -J -R -K -O -V -D.11/0 -F+f8p,Times-Roman,Black+jBL wide_oldstanames >> $outfile
+#gmt pstext -J -R -K -O -V -D-.05/-.3 -F+f8p,Times-Roman,Black+jBL 2D_profiles_prelim_name.txt >> $outfile
+#gmt psxy 3D_profiles.txt -J -R -O -K -W0.5 >>$outfile
+#gmt psxy 2D_profiles.txt -J -R -O -K -W0.5 >>$outfile
+#gmt psxy tomo_profiles.txt -J -R -O -K -W0.5,yellow >>$outfile
+#gmt pstext -J -R -K -O -V -D.-2/.2 -F+f8p,Times-Roman,Black+jBL T_COS_NAME.txt >> $outfile
+
+gmt pscoast -J -R -Na -W -Dh -O  >> $outfile
+
+
+# Points
+# gmt psxy dsdp_holes_edited.txt -J -R -K -O -Sh0.2 -W0.25,black -Gmagenta >> $outfile
+
+
+#Lines
+#gmt psxy RSNcableroute.xy -J -R -O -K -: -W1.0,tan >> $outfile
+
+open $outfile
