@@ -9,3 +9,4 @@
 *.ipynb_checkpoints
 output*
 /training
+/sourcefiles
