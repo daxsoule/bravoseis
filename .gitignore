@@ -8,6 +8,5 @@
 *.pid
 *.ipynb_checkpoints
 output*
-training/
 sourcefiles/
 *.txt
