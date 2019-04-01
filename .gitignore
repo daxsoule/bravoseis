@@ -9,5 +9,5 @@
 *.ipynb_checkpoints
 output*
 training/
-sourcefile/
+sourcefiles/
 *.txt
