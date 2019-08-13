@@ -9,4 +9,5 @@
 *.ipynb_checkpoints
 output*
 sourcefiles/
+*.csv
 *.txt
