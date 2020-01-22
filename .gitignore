@@ -11,3 +11,4 @@ output*
 sourcefiles/
 *.csv
 *.txt
+/notebooks/dask-worker-space/*
