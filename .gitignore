@@ -12,3 +12,4 @@ sourcefiles/
 *.csv
 *.txt
 /notebooks/dask-worker-space/*
+*.dirlock
